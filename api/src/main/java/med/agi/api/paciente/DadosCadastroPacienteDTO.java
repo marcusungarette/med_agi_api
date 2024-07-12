@@ -1,4 +1,4 @@
-package med.agi.api.medico;
+package med.agi.api.paciente;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
@@ -7,26 +7,22 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import med.agi.api.endereco.DadosEndereco;
 
-public record DadosCadastroMedico(
-
-        @NotBlank //only for Strings
+public record DadosCadastroPacienteDTO(
+        @NotBlank
         String nome,
 
-        @NotBlank
-        @Email
+        @NotBlank @Email
         String email,
 
         @NotBlank
         String telefone,
 
         @NotBlank
-        @Pattern(regexp = "\\d{4,6}") // Between 4 and 6 digits
-        String crm,
+        @Pattern(regexp = "\\d{3}\\.?\\d{3}\\.?\\d{3}\\-?\\d{2}")
+        String cpf,
 
         @NotNull
-        Especialidade especialidade,
-
-        @NotNull
-        @Valid //Valida se o outro DTO esta Ok
-        DadosEndereco endereco) {
+        @Valid
+        DadosEndereco endereco
+) {
 }

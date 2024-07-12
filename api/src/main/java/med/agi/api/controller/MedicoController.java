@@ -1,11 +1,15 @@
 package med.agi.api.controller;
 
 import jakarta.validation.Valid;
-import med.agi.api.medico.DadosCadastroMedico;
-import med.agi.api.medico.DadosListagemMedico;
+import med.agi.api.medico.DadosCadastroMedicoDTO;
+import med.agi.api.medico.DadosListagemMedicoDTO;
 import med.agi.api.medico.Medico;
 import med.agi.api.medico.MedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedModel;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,12 +24,12 @@ public class MedicoController {
 
     @PostMapping
     @Transactional
-    public void cadastrar(@RequestBody @Valid DadosCadastroMedico dados) {
+    public void cadastrar(@RequestBody @Valid DadosCadastroMedicoDTO dados) {
         repository.save(new Medico(dados));
     }
 
     @GetMapping
-    public List<DadosListagemMedico> listar(){
-        return repository.findAll().stream().map(DadosListagemMedico::new).toList();
+    public PagedModel<DadosListagemMedicoDTO> listar(Pageable paginacao){
+        return new PagedModel<>(repository.findAll(paginacao).map(DadosListagemMedicoDTO::new)) ;
     }
 }

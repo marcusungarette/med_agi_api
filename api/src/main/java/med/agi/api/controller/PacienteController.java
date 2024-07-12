@@ -1,7 +1,7 @@
 package med.agi.api.controller;
 
 import jakarta.validation.Valid;
-import med.agi.api.paciente.DadosCadastroPaciente;
+import med.agi.api.paciente.DadosCadastroPacienteDTO;
 import med.agi.api.paciente.Paciente;
 import med.agi.api.paciente.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class PacienteController {
 
     @PostMapping
     @Transactional
-    public void cadastrar(@RequestBody @Valid DadosCadastroPaciente dados) {
+    public void cadastrar(@RequestBody @Valid DadosCadastroPacienteDTO dados) {
         repository.save(new Paciente(dados));
     }
 }

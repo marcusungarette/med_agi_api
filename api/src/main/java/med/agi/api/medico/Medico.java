@@ -28,7 +28,7 @@ public class Medico {
     @Embedded
     private Endereco endereco;
 
-    public Medico(DadosCadastroMedico dados) {
+    public Medico(DadosCadastroMedicoDTO dados) {
         this.nome = dados.nome();
         this.email = dados.email();
         this.crm = dados.crm();
