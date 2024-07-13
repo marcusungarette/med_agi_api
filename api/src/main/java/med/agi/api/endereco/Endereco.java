@@ -28,4 +28,18 @@ public class Endereco {
         this.numero = dados.numero();
         this.complemento = dados.complemento();
     }
+
+    private String atualizarCampo(String campoAtual, String novoCampo) {
+        return novoCampo != null ? novoCampo : campoAtual;
+    }
+
+    public void atualizarInformacoes(DadosEndereco dados) {
+        this.logradouro = atualizarCampo(this.logradouro, dados.logradouro());
+        this.bairro = atualizarCampo(this.bairro, dados.bairro());
+        this.cep = atualizarCampo(this.cep, dados.cep());
+        this.uf = atualizarCampo(this.uf, dados.uf());
+        this.cidade = atualizarCampo(this.cidade, dados.cidade());
+        this.numero = atualizarCampo(this.numero, dados.numero());
+        this.complemento = atualizarCampo(this.complemento, dados.complemento());
+    }
 }
