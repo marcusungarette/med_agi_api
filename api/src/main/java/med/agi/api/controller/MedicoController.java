@@ -3,9 +3,9 @@ package med.agi.api.controller;
 import jakarta.validation.Valid;
 import med.agi.api.medico.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.data.web.PagedModel;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,8 +24,8 @@ public class MedicoController {
     }
 
     @GetMapping
-    public PagedModel<DadosListagemMedicoDTO> listar(@PageableDefault(sort = {"nome"}) Pageable paginacao){
-        return new PagedModel<>(repository.findAll(paginacao).map(DadosListagemMedicoDTO::new)) ;
+    public Page<DadosListagemMedicoDTO> listar(@PageableDefault(sort = {"nome"}) Pageable paginacao){
+        return repository.findAllByAtivoTrue(paginacao).map(DadosListagemMedicoDTO::new);
     }
 
     @PutMapping
@@ -33,5 +33,13 @@ public class MedicoController {
     public void atualizar(@RequestBody @Valid DadosAtualizarMedicoDTO dados){
         var medico = repository.getReferenceById(dados.id());
         medico.atualizarInformacoes(dados);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void excluir(@PathVariable Long id){
+        var medico = repository.getReferenceById(id);
+        medico.excluir();
+        repository.save(medico);
     }
 }
