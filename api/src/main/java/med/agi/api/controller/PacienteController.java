@@ -1,14 +1,11 @@
 package med.agi.api.controller;
 
 import jakarta.validation.Valid;
-import med.agi.api.paciente.DadosCadastroPacienteDTO;
-import med.agi.api.paciente.DadosListagemPacienteDTO;
-import med.agi.api.paciente.Paciente;
-import med.agi.api.paciente.PacienteRepository;
+import med.agi.api.paciente.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.data.web.PagedModel;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,8 +23,22 @@ public class PacienteController {
     }
 
     @GetMapping
-    public PagedModel<DadosListagemPacienteDTO> listar(@PageableDefault(sort = {"nome"}) Pageable paginacao){
-        return new PagedModel<>(repository.findAll(paginacao).map(DadosListagemPacienteDTO::new)) ;
+    public Page<DadosListagemPacienteDTO> listar(@PageableDefault(sort = { "nome" }) Pageable paginacao) {
+        return repository.findAllByAtivoTrue(paginacao).map(DadosListagemPacienteDTO::new);
+    }
+
+    @PutMapping
+    @Transactional
+    public void atualizar(@RequestBody @Valid DadosAtualizarPacienteDTO dados) {
+        var paciente = repository.getReferenceById(dados.id());
+        paciente.atualizarInformacoes(dados);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void remover(@PathVariable Long id) {
+        var paciente = repository.getReferenceById(id);
+        paciente.inativar();
     }
 }
 
