@@ -1,4 +1,4 @@
-package med.agi.api.infra;
+package med.agi.api.infra.exception;
 
 
 import jakarta.persistence.EntityNotFoundException;

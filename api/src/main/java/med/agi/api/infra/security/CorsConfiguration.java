@@ -1,4 +1,4 @@
-package med.agi.api.config;
+package med.agi.api.infra.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
