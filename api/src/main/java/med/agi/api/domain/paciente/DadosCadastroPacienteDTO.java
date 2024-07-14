@@ -8,20 +8,21 @@ import jakarta.validation.constraints.Pattern;
 import med.agi.api.domain.endereco.DadosEndereco;
 
 public record DadosCadastroPacienteDTO(
-        @NotBlank
+        @NotBlank(message = "Nome é obrigatório")
         String nome,
 
-        @NotBlank @Email
+        @NotBlank(message = "Email é obrigatório")
+        @Email
         String email,
 
-        @NotBlank
+        @NotBlank(message = "Telefone é obrigatório")
         String telefone,
 
-        @NotBlank
-        @Pattern(regexp = "\\d{3}\\.?\\d{3}\\.?\\d{3}\\-?\\d{2}")
+        @NotBlank(message = "CPF é obrigatório")
+        @Pattern(regexp = "\\d{3}\\.?\\d{3}\\.?\\d{3}\\-?\\d{2}", message = "Formato do CPF é inválido")
         String cpf,
 
-        @NotNull
+        @NotNull(message = "Dados do endereço são obrigatórios")
         @Valid
         DadosEndereco endereco
 ) {

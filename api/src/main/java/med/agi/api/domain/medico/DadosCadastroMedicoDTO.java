@@ -9,24 +9,24 @@ import med.agi.api.domain.endereco.DadosEndereco;
 
 public record DadosCadastroMedicoDTO(
 
-        @NotBlank //only for Strings
+        @NotBlank(message = "Nome é obrigatório") //only for Strings
         String nome,
 
-        @NotBlank
+        @NotBlank(message = "Email é obrigatório")
         @Email
         String email,
 
-        @NotBlank
+        @NotBlank(message = "Telefone é obrigatório")
         String telefone,
 
-        @NotBlank
-        @Pattern(regexp = "\\d{4,6}") // Between 4 and 6 digits
+        @NotBlank(message = "CRM é obrigatório")
+        @Pattern(regexp = "\\d{4,6}", message = "Formato do CRM é inválido") // Between 4 and 6 digits
         String crm,
 
-        @NotNull
+        @NotNull(message = "Especialidade é obrigatória")
         Especialidade especialidade,
 
-        @NotNull
+        @NotNull(message = "Dados do endereço são obrigatórios")
         @Valid //Valida se o outro DTO esta Ok
         DadosEndereco endereco) {
 }
