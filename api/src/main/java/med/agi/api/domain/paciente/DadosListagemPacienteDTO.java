@@ -1,4 +1,4 @@
-package med.agi.api.paciente;
+package med.agi.api.domain.paciente;
 
 public record DadosListagemPacienteDTO(Long id, String nome, String email, String cpf) {
     public DadosListagemPacienteDTO(Paciente paciente) {

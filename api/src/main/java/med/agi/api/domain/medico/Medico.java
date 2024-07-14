@@ -1,44 +1,49 @@
-package med.agi.api.paciente;
-
+package med.agi.api.domain.medico;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import med.agi.api.endereco.Endereco;
+import med.agi.api.domain.endereco.Endereco;
 
+@Table(name = "medicos")
+@Entity(name = "Medico")
 @Getter
-@EqualsAndHashCode(of = "id")
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "Paciente")
-@Table(name = "pacientes")
-public class Paciente {
+@EqualsAndHashCode(of = "id")
+public class Medico {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String nome;
     private String email;
-    private String cpf;
     private String telefone;
+    private String crm;
+
+
+    @Enumerated(EnumType.STRING)
+    private Especialidade especialidade;
 
     @Embedded
     private Endereco endereco;
 
     private Boolean ativo;
 
-    public Paciente(DadosCadastroPacienteDTO dados) {
+    public Medico(DadosCadastroMedicoDTO dados) {
         this.ativo = true;
         this.nome = dados.nome();
         this.email = dados.email();
+        this.crm = dados.crm();
         this.telefone = dados.telefone();
-        this.cpf = dados.cpf();
+        this.especialidade = dados.especialidade();
         this.endereco = new Endereco(dados.endereco());
+
     }
 
-    public void atualizarInformacoes(DadosAtualizarPacienteDTO dados) {
+    public void atualizarInformacoes(DadosAtualizarMedicoDTO dados) {
         this.nome = (dados.nome() != null) ? dados.nome() : this.nome;
         this.telefone = (dados.telefone() != null) ? dados.telefone() : this.telefone;
         if (dados.endereco() != null) {
@@ -46,8 +51,7 @@ public class Paciente {
         }
     }
 
-    public void inativar() {
+    public void excluir() {
         this.ativo = false;
     }
-
 }

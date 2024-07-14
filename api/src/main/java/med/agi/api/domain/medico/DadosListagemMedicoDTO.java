@@ -1,4 +1,4 @@
-package med.agi.api.medico;
+package med.agi.api.domain.medico;
 
 public record DadosListagemMedicoDTO(Long id, String nome, String email, String crm, Especialidade especialidade) {
 

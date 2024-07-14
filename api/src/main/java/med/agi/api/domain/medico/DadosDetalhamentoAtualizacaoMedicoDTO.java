@@ -1,6 +1,6 @@
-package med.agi.api.medico;
+package med.agi.api.domain.medico;
 
-import med.agi.api.endereco.Endereco;
+import med.agi.api.domain.endereco.Endereco;
 
 public record DadosDetalhamentoAtualizacaoMedicoDTO(
         Long id,

@@ -1,4 +1,4 @@
-package med.agi.api.endereco;
+package med.agi.api.domain.endereco;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;

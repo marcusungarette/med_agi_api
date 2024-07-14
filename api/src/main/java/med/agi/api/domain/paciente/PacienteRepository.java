@@ -1,4 +1,4 @@
-package med.agi.api.paciente;
+package med.agi.api.domain.paciente;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
