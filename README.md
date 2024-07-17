@@ -1,13 +1,25 @@
 # API Rest da empresa fictícia Agi.med
 
-Este projeto é uma API Rest desenvolvida em Java utilizando o Spring Boot. A API tem como objetivo gerenciar os dados de pacientes e medicos da empresa fictícia Agi.med. 
+Este projeto é uma API Rest desenvolvida em Java utilizando o Spring Boot. A API tem como objetivo gerenciar os dados de pacientes, médicos e consultas da empresa fictícia Agi.med. 
 
 ## Funcionalidades
 
-- Cadastro de pacientes e medicos
-- Consulta de pacientes e medicos
-- Atualização de dados de pacientes e medicos
-- Exclusão de pacientes e medicos
+- Cadastro de pacientes e médicos.
+- Agendar consultas de pacientes e médicos por especialidade médica.
+- Cancelar consultas médicas de pacientes e médicos.
+- Atualização de dados de pacientes e médicos.
+- Inativa ou Exclui pacientes e médicos.
+
+## Regras de Negócio
+
+- A consulta somente pode ser cancelada com antecedência mínima de 24 horas.
+- A especialidade é obrigatória. Quando o médico não for escolhido, selecionamos um disponível de forma aleatória naquela especialidade.
+- A consulta deve ser agendada com antecedência mínima de 30 minutos.
+- A consulta deve ser agendada apenas no horário de funcionamento da clínica (segunda a sábado, entre 8h e 18h).
+- A consulta não pode ser agendada com um médico inativo no sistema.
+- A consulta não pode ser agendada no mesmo horário com o mesmo médico.
+- A consulta não pode ser agendada para um paciente excluído.
+- O paciente deve possuir apenas uma consulta agendada por dia na clínica.
 
 ## Dependências
 
@@ -22,6 +34,7 @@ Este projeto utiliza as seguintes dependências:
 - **Flyway MySQL**: Para suporte específico a MySQL nas migrações de banco de dados.
 - **MySQL Connector/J**: Driver JDBC para conexão com o banco de dados MySQL.
 - **Spring Boot Starter Test**: Para testes unitários e de integração.
+- **Auth JWT**: Para segurança da integração SERVELESS entre o cliente e o servidor.
 
 ## Requisitos
 
