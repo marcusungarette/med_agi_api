@@ -2,15 +2,15 @@ package med.agi.api.domain.consulta;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import med.agi.api.domain.consulta.cancelamento.MotivoCancelamento;
 import med.agi.api.domain.medico.Medico;
 import med.agi.api.domain.paciente.Paciente;
 
 import java.time.LocalDateTime;
 
+@Data
+@Builder
 @Table(name = "consultas")
 @Entity(name = "Consulta")
 @Getter
@@ -33,6 +33,9 @@ public class Consulta {
 
     private LocalDateTime data;
 
+    private Boolean ativo;
+
+
 
     @Override
     public String toString() {
@@ -42,5 +45,10 @@ public class Consulta {
                 ", pacienteId=" + (paciente != null ? paciente.getId() : null) +
                 ", data=" + data +
                 '}';
+    }
+
+
+    public void cancelar(MotivoCancelamento motivo) {
+        this.ativo = false;
     }
 }
