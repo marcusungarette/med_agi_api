@@ -1,9 +1,11 @@
 package med.agi.api.domain.consulta;
 
+import med.agi.api.domain.consulta.cancelamento.MotivoCancelamento;
+
 import java.time.LocalDateTime;
 
-public record DadosDetalhamentoConsultaDTO(Long id, Long idPaciente, Long idMedico, LocalDateTime data) {
+public record DadosDetalhamentoConsultaDTO(Long id, Long idPaciente, Long idMedico, LocalDateTime data, MotivoCancelamento motivo) {
     public DadosDetalhamentoConsultaDTO(Consulta consulta) {
-        this(consulta.getId(), consulta.getPaciente().getId(), consulta.getMedico().getId(), consulta.getData());
+        this(consulta.getId(), consulta.getPaciente().getId(), consulta.getMedico().getId(), consulta.getData(), consulta.getMotivo());
     }
 }

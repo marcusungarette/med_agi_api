@@ -4,12 +4,14 @@ package med.agi.api.domain.consulta;
 import med.agi.api.domain.consulta.cancelamento.DadosCancelamentoConsultaDTO;
 import med.agi.api.domain.consulta.cancelamento.ValidadorCancelamentoDeConsulta;
 import med.agi.api.domain.consulta.validacoes.ValidadorAgendamentoDeConsulta;
+import med.agi.api.domain.medico.DadosDetalhamentoAtualizacaoMedicoDTO;
 import med.agi.api.domain.medico.Medico;
 import med.agi.api.domain.medico.MedicoRepository;
 import med.agi.api.domain.paciente.Paciente;
 import med.agi.api.domain.paciente.PacienteRepository;
 import med.agi.api.infra.exception.ValidacaoException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,7 +53,7 @@ public class AgendaConsultasService {
             throw new ValidacaoException("Nao existe medico disponivel nessa data");
         }
 
-        Consulta consulta = new Consulta(dados.id(), medico, paciente, dados.data(),(dados.ativo() != null ? dados.ativo() : true));
+        Consulta consulta = new Consulta(dados.id(), medico, paciente, dados.data(),(dados.ativo() != null ? dados.ativo() : true), null);
         consultaRepository.save(consulta);
 
         return new DadosDetalhamentoConsultaDTO(consulta);
@@ -76,7 +78,7 @@ public class AgendaConsultasService {
         validadoresCancelamento.forEach(v -> v.validar(dados));
 
         var consulta = consultaRepository.getReferenceById(dados.id());
-        consulta.cancelar(dados.motivo());
+        consulta.atualizarInformacoes(dados);
         return new DadosDetalhamentoConsultaDTO(consulta);
     }
 }

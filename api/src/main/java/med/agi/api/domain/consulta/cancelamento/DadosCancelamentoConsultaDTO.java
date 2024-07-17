@@ -8,6 +8,5 @@ public record DadosCancelamentoConsultaDTO(
         Long id,
 
         MotivoCancelamento motivo
-
 ) {
 }

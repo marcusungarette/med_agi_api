@@ -3,14 +3,14 @@ package med.agi.api.domain.consulta;
 
 import jakarta.persistence.*;
 import lombok.*;
+import med.agi.api.domain.consulta.cancelamento.DadosCancelamentoConsultaDTO;
 import med.agi.api.domain.consulta.cancelamento.MotivoCancelamento;
 import med.agi.api.domain.medico.Medico;
 import med.agi.api.domain.paciente.Paciente;
 
 import java.time.LocalDateTime;
 
-@Data
-@Builder
+
 @Table(name = "consultas")
 @Entity(name = "Consulta")
 @Getter
@@ -35,20 +35,24 @@ public class Consulta {
 
     private Boolean ativo;
 
-
+    @Enumerated(EnumType.STRING)
+    private MotivoCancelamento motivo;
 
     @Override
     public String toString() {
         return "Consulta{" +
                 "id=" + id +
-                ", medicoId=" + (medico != null ? medico.getId() : null) +
-                ", pacienteId=" + (paciente != null ? paciente.getId() : null) +
+                ", medico=" + medico +
+                ", paciente=" + paciente +
                 ", data=" + data +
+                ", ativo=" + ativo +
+                ", motivo=" + motivo +
                 '}';
     }
 
-
-    public void cancelar(MotivoCancelamento motivo) {
+    public void atualizarInformacoes(DadosCancelamentoConsultaDTO dados) {
         this.ativo = false;
+        this.motivo = (dados.motivo() != null) ? dados.motivo() : this.motivo;
+        }
     }
-}
+

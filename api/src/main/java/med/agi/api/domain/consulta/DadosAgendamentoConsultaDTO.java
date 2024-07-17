@@ -18,7 +18,6 @@ public record DadosAgendamentoConsultaDTO(
         @Future
         LocalDateTime data,   ///@JsonAlias({“data_da_consulta”, “data_consulta”}) LocalDateTime data
                               ///@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-
         Boolean ativo,
 
         Especialidade especialidade
