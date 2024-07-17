@@ -2,6 +2,7 @@ package med.agi.api.domain.consulta;
 
 
 import med.agi.api.domain.consulta.cancelamento.DadosCancelamentoConsultaDTO;
+import med.agi.api.domain.consulta.cancelamento.DadosDetalhamentoConsultaCanceladaDTO;
 import med.agi.api.domain.consulta.cancelamento.ValidadorCancelamentoDeConsulta;
 import med.agi.api.domain.consulta.validacoes.ValidadorAgendamentoDeConsulta;
 import med.agi.api.domain.medico.DadosDetalhamentoAtualizacaoMedicoDTO;
@@ -71,7 +72,7 @@ public class AgendaConsultasService {
         return medicoRepository.escolherMedicoAleatorioLivreNaData(dados.especialidade(), dados.data());
     }
 
-    public DadosDetalhamentoConsultaDTO cancelar(DadosCancelamentoConsultaDTO dados) {
+    public DadosDetalhamentoConsultaCanceladaDTO cancelar(DadosCancelamentoConsultaDTO dados) {
         if (!consultaRepository.existsById(dados.id())) {
             throw new ValidacaoException("Id da consulta informado não existe!");
         }
@@ -79,6 +80,6 @@ public class AgendaConsultasService {
 
         var consulta = consultaRepository.getReferenceById(dados.id());
         consulta.atualizarInformacoes(dados);
-        return new DadosDetalhamentoConsultaDTO(consulta);
+        return new DadosDetalhamentoConsultaCanceladaDTO(consulta);
     }
 }
