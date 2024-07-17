@@ -33,4 +33,14 @@ public class Consulta {
 
     private LocalDateTime data;
 
+
+    @Override
+    public String toString() {
+        return "Consulta{" +
+                "id=" + id +
+                ", medicoId=" + (medico != null ? medico.getId() : null) +
+                ", pacienteId=" + (paciente != null ? paciente.getId() : null) +
+                ", data=" + data +
+                '}';
+    }
 }

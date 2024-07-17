@@ -4,7 +4,6 @@ package med.agi.api.controller;
 import jakarta.validation.Valid;
 import med.agi.api.domain.consulta.AgendaConsultasService;
 import med.agi.api.domain.consulta.DadosAgendamentoConsultaDTO;
-import med.agi.api.domain.consulta.DadosDetalhamentoConsultaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,8 +22,7 @@ public class ConsultaController {
     @PostMapping
     @Transactional
     public ResponseEntity agendar(@RequestBody @Valid DadosAgendamentoConsultaDTO dados){
-        agenda.agendar(dados);
-        return ResponseEntity.ok(new DadosDetalhamentoConsultaDTO(null,null,null, null));
-
+        var dtoDevolvidoPelaService = agenda.agendar(dados);
+        return ResponseEntity.ok(dtoDevolvidoPelaService);
     }
 }

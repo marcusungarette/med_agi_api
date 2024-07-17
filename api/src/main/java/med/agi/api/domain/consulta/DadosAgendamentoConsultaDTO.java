@@ -7,6 +7,8 @@ import med.agi.api.domain.medico.Especialidade;
 import java.time.LocalDateTime;
 
 public record DadosAgendamentoConsultaDTO(
+        Long id,
+
         Long idMedico,
 
         @NotNull
@@ -16,7 +18,9 @@ public record DadosAgendamentoConsultaDTO(
         @Future
         LocalDateTime data,   ///@JsonAlias({“data_da_consulta”, “data_consulta”}) LocalDateTime data
                               ///@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+
         Especialidade especialidade
 
 ) {
+
 }

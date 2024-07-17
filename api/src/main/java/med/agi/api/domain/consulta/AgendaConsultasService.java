@@ -1,14 +1,18 @@
 package med.agi.api.domain.consulta;
 
 
+import med.agi.api.domain.consulta.validacoes.ValidadorAgendamentoDeConsulta;
+import med.agi.api.domain.medico.DadosDetalhamentoAtualizacaoMedicoDTO;
 import med.agi.api.domain.medico.Medico;
 import med.agi.api.domain.medico.MedicoRepository;
 import med.agi.api.domain.paciente.Paciente;
 import med.agi.api.domain.paciente.PacienteRepository;
 import med.agi.api.infra.exception.ValidacaoException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,7 +27,10 @@ public class AgendaConsultasService {
     @Autowired
     private PacienteRepository pacienteRepository;
 
-    public void agendar(DadosAgendamentoConsultaDTO dados) {
+    @Autowired
+    private List<ValidadorAgendamentoDeConsulta> validadores;
+
+    public DadosDetalhamentoConsultaDTO agendar(DadosAgendamentoConsultaDTO dados) {
 
         if (!pacienteRepository.existsById(dados.idPaciente())) {
             throw new ValidacaoException("Id do Paciente informado nao existe!");
@@ -33,12 +40,14 @@ public class AgendaConsultasService {
             throw new ValidacaoException("Id do Medico informado nao existe!");
         }
 
+        validadores.forEach(v -> v.validar(dados));
 
         Paciente paciente = pacienteRepository.getReferenceById(dados.idPaciente());
         Medico medico = escolherMedico(dados);
-        Consulta consulta = new Consulta(null, medico, paciente, dados.data());
+        Consulta consulta = new Consulta(dados.id(), medico, paciente, dados.data());
         consultaRepository.save(consulta);
 
+        return new DadosDetalhamentoConsultaDTO(consulta);
     }
 
     private Medico escolherMedico(DadosAgendamentoConsultaDTO dados) {
