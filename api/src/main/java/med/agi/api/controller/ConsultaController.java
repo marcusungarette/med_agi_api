@@ -1,6 +1,7 @@
 package med.agi.api.controller;
 
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import med.agi.api.domain.consulta.AgendaConsultasService;
 import med.agi.api.domain.consulta.DadosAgendamentoConsultaDTO;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("consultas")
+@SecurityRequirement(name = "bearer-key")
 public class ConsultaController {
 
     @Autowired

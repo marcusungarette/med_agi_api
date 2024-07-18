@@ -29,6 +29,9 @@ public class SecurityFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
+//        if (request.getRequestURI().startsWith("/swagger") || "/v3/api-docs".equals(request.getRequestURI())) {
+//            return;
+//        }
 
         var jwtToken = recurerarToken(request);
         if (jwtToken != null) {
@@ -42,10 +45,11 @@ public class SecurityFilter extends OncePerRequestFilter {
     }
 
     private String recurerarToken(HttpServletRequest request) {
-        var authorizationHeader = request.getHeader("Authorization");
-        if (authorizationHeader == null) {
-            throw new RuntimeException("Token JWT not send by Authorization Header ");
+        var authorizationHeader = request.getHeader ("Authorization");
+        if (authorizationHeader != null && authorizationHeader.startsWith ("Bearer ")) {
+            String token = authorizationHeader.replace ("Bearer ", "");
+            return token;
         }
-        return authorizationHeader.replace("Bearer ", "");
+        return null;
     }
 }
