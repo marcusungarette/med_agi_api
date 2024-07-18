@@ -5,14 +5,12 @@ import med.agi.api.domain.consulta.cancelamento.DadosCancelamentoConsultaDTO;
 import med.agi.api.domain.consulta.cancelamento.DadosDetalhamentoConsultaCanceladaDTO;
 import med.agi.api.domain.consulta.cancelamento.ValidadorCancelamentoDeConsulta;
 import med.agi.api.domain.consulta.validacoes.ValidadorAgendamentoDeConsulta;
-import med.agi.api.domain.medico.DadosDetalhamentoAtualizacaoMedicoDTO;
 import med.agi.api.domain.medico.Medico;
 import med.agi.api.domain.medico.MedicoRepository;
 import med.agi.api.domain.paciente.Paciente;
 import med.agi.api.domain.paciente.PacienteRepository;
 import med.agi.api.infra.exception.ValidacaoException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
